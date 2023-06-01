@@ -1,0 +1,860 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: My Event Calendar\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-12 10:07+0000\n"
+"PO-Revision-Date: 2022-10-18 15:36+0000\n"
+"Last-Translator: Barbara Bothe <info@barbara-bothe.de>\n"
+"Language-Team: Deutsch\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.2; wp-6.0.2\n"
+"X-Domain: my-event-calendar"
+
+#: inc/CPT/cpt-event.php:255
+msgid "(optional)"
+msgstr "(optional)"
+
+#: inc/shortcode-calendar.php:335 inc/shortcode-calendar.php:423
+#: inc/CPT/cpt-event.php:95
+msgctxt "Abbr. Friday"
+msgid "Fri"
+msgstr "Fr."
+
+#: inc/shortcode-calendar.php:331 inc/shortcode-calendar.php:419
+#: inc/CPT/cpt-event.php:91
+msgctxt "Abbr. Monday"
+msgid "Mon"
+msgstr "Mo."
+
+#: inc/shortcode-calendar.php:336 inc/shortcode-calendar.php:424
+#: inc/CPT/cpt-event.php:96
+msgctxt "Abbr. Saturday"
+msgid "Sat"
+msgstr "Sa."
+
+#: inc/shortcode-calendar.php:337 inc/shortcode-calendar.php:425
+#: inc/CPT/cpt-event.php:90
+msgctxt "Abbr. Sunday"
+msgid "Sun"
+msgstr "So."
+
+#: inc/shortcode-calendar.php:334 inc/shortcode-calendar.php:422
+#: inc/CPT/cpt-event.php:94
+msgctxt "Abbr. Thursday"
+msgid "Thu"
+msgstr "Do."
+
+#: inc/shortcode-calendar.php:332 inc/shortcode-calendar.php:420
+#: inc/CPT/cpt-event.php:92
+msgctxt "Abbr. Tuesday"
+msgid "Tue"
+msgstr "Di."
+
+#: inc/shortcode-calendar.php:333 inc/shortcode-calendar.php:421
+#: inc/CPT/cpt-event.php:93
+msgctxt "Abbr. Wednesday"
+msgid "Wed"
+msgstr "Mi."
+
+#: inc/CPT/cpt-event.php:39
+msgid "Add and edit event informations"
+msgstr "Informationen zur Veranstaltung hinzufügen und bearbeiten"
+
+#: inc/CPT/cpt-organizer.php:13 inc/CPT/cpt-location.php:13
+msgid "Add New"
+msgstr "Hinzufügen"
+
+#: inc/CPT/cpt-event.php:15 inc/CPT/cpt-event.php:16
+msgid "Add New Event"
+msgstr "Veranstaltung hinzufügen"
+
+#: inc/CPT/cpt-location.php:14
+msgid "Add New Location"
+msgstr "Veranstaltungsort hinzufügen"
+
+#: inc/CPT/cpt-event.php:14
+msgctxt "Add New on Toolbar"
+msgid "Event"
+msgstr "Veranstaltung"
+
+#: inc/CPT/cpt-location.php:12
+msgctxt "Add New on Toolbar"
+msgid "Location"
+msgstr "Veranstaltungsort"
+
+#: inc/CPT/cpt-organizer.php:12
+msgctxt "Add New on Toolbar"
+msgid "Organizer"
+msgstr "Veranstalter"
+
+#: inc/CPT/cpt-organizer.php:14
+msgid "Add New Organizer"
+msgstr "Veranstalter hinzufügen"
+
+#: inc/CPT/cpt-location.php:66 inc/CPT/cpt-location.php:126
+msgid "Address"
+msgstr "Adresse"
+
+#: inc/CPT/cpt-event.php:13
+msgctxt "Admin Menu text"
+msgid "Events"
+msgstr "Veranstaltungen"
+
+#: inc/CPT/cpt-location.php:11
+msgctxt "Admin Menu text"
+msgid "Locations"
+msgstr "Veranstaltungsorte"
+
+#: inc/CPT/cpt-organizer.php:11
+msgctxt "Admin Menu text"
+msgid "Organizers"
+msgstr "Veranstalter"
+
+#: inc/CPT/cpt-event.php:20
+msgid "All Events"
+msgstr "Alle Veranstaltungen"
+
+#: inc/shortcode-calendar.php:285
+msgid "An diesem Tag finden keine Veranstaltungen statt."
+msgstr "An diesem Tag finden keine Veranstaltungen statt."
+
+#: inc/CPT/cpt-event.php:70 inc/CPT/cpt-event.php:365
+msgid "Apr"
+msgstr "Apr."
+
+#: inc/shortcode-calendar.php:307 inc/shortcode-calendar.php:403
+msgid "April"
+msgstr "April"
+
+#: inc/CPT/cpt-event.php:74 inc/CPT/cpt-event.php:369
+msgid "Aug"
+msgstr "Aug."
+
+#: inc/shortcode-calendar.php:311 inc/shortcode-calendar.php:407
+msgid "August"
+msgstr "August"
+
+#. Author of the plugin
+msgid "Barbara Bothe"
+msgstr "Barbara Bothe"
+
+#: inc/CPT/cpt-location.php:82
+msgid "City"
+msgstr "Stadt"
+
+#: inc/CPT/cpt-event.php:491
+msgid "Color"
+msgstr "Farbe"
+
+#: inc/CPT/cpt-event.php:485
+msgid "Color Metabox"
+msgstr "Farbeinstellungen"
+
+#. %s: Name of current post. Only visible to screen readers
+#: inc/template-functions.php:181
+#, php-format
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr "<span class=\"screen-reader-text\">\"%s\"</span> weiterlesen"
+
+#: inc/CPT/cpt-event.php:328 inc/CPT/cpt-event.php:433
+msgid "Date"
+msgstr "Datum"
+
+#: inc/shortcode-calendar.php:139
+msgid "Day"
+msgstr "Tag"
+
+#: inc/CPT/cpt-event.php:78 inc/CPT/cpt-event.php:373
+msgid "Dec"
+msgstr "Dez."
+
+#: inc/shortcode-calendar.php:315 inc/shortcode-calendar.php:411
+msgid "December"
+msgstr "Dezember"
+
+#: inc/CPT/cpt-event.php:108
+msgid "Description"
+msgstr "Beschreibung"
+
+#: inc/CPT/cpt-event.php:168 inc/CPT/cpt-event.php:578
+#: inc/CPT/cpt-location.php:94
+msgid "Downloads"
+msgstr "Downloads"
+
+#: inc/CPT/cpt-event.php:323
+msgid "Each"
+msgstr "Jeder"
+
+#: inc/CPT/cpt-event.php:343 inc/CPT/cpt-event.php:352
+msgid "each"
+msgstr "jeder"
+
+#: inc/CPT/cpt-event.php:18
+msgid "Edit Event"
+msgstr "Veranstaltung bearbeiten"
+
+#: inc/CPT/cpt-location.php:16
+msgid "Edit Location"
+msgstr "Veranstaltungsort bearbeiten"
+
+#: inc/CPT/cpt-organizer.php:16
+msgid "Edit Organizer"
+msgstr "Veranstalter bearbeiten"
+
+#: inc/CPT/cpt-organizer.php:85 inc/CPT/cpt-organizer.php:118
+msgid "Email"
+msgstr "E-Mail"
+
+#: inc/CPT/cpt-event.php:225
+msgid "End"
+msgstr "Ende"
+
+#: inc/CPT/cpt-event.php:38
+msgid "Event"
+msgstr "Veranstaltung"
+
+#: inc/CPT/cpt-event.php:471 inc/CPT/cpt-event.php:541
+msgid "Event Categories"
+msgstr "Veranstaltungskategorien"
+
+#: inc/CPT/cpt-event.php:472
+msgid "Event Category"
+msgstr "Veranstaltungskategorie"
+
+#: inc/CPT/cpt-event.php:378
+msgid "Event Items"
+msgstr "Einzelveranstaltungen"
+
+#: inc/CPT/cpt-event.php:293
+msgid "every"
+msgstr "jeder"
+
+#: inc/CPT/cpt-event.php:314
+msgid "Exceptions"
+msgstr "Ausnahmen"
+
+#: inc/CPT/cpt-event.php:187
+msgid "Featured Event"
+msgstr "Hervorgehobene Veranstaltung"
+
+#: inc/CPT/cpt-event.php:68 inc/CPT/cpt-event.php:363
+msgid "Feb"
+msgstr "Feb."
+
+#: inc/shortcode-calendar.php:305 inc/shortcode-calendar.php:401
+msgid "February"
+msgstr "Februar"
+
+#: inc/CPT/custom-fields.php:77
+msgid "fifth"
+msgstr "fünfte"
+
+#: inc/CPT/custom-fields.php:73
+msgid "first"
+msgstr "erste"
+
+#: inc/CPT/cpt-event.php:523
+msgctxt "for duration"
+msgid "to"
+msgstr "bis"
+
+#: inc/CPT/custom-fields.php:76
+msgid "fourth"
+msgstr "vierte"
+
+#: inc/CPT/cpt-event.php:307
+msgid "Fri"
+msgstr "Fr."
+
+#: inc/CPT/cpt-event.php:86 inc/CPT/custom-fields.php:88
+msgid "Friday"
+msgstr "Freitag"
+
+#: inc/CPT/cpt-event.php:101
+msgid "General Information"
+msgstr "Allgemeine Informationen"
+
+#: inc/CPT/cpt-event.php:315
+msgid ""
+"Hier können Sie Tage angeben, an denen die Veranstaltung ausnahmsweise "
+"ausfällt (Format YYYY-MM-DD, z.B. 2023-12-31). Ein Datum pro Zeile."
+msgstr ""
+"Hier können Sie Tage angeben, an denen die Veranstaltung ausnahmsweise "
+"ausfällt (Format YYYY-MM-DD, z.B. 2023-12-31). Ein Datum pro Zeile."
+
+#. Author URI of the plugin
+msgid "https://barbara-bothe.de"
+msgstr "https://barbara-bothe.de"
+
+#: inc/CPT/cpt-event.php:67 inc/CPT/cpt-event.php:362
+msgid "Jan"
+msgstr "Jan."
+
+#: inc/shortcode-calendar.php:304 inc/shortcode-calendar.php:400
+msgid "January"
+msgstr "Januar"
+
+#: inc/CPT/cpt-event.php:73 inc/CPT/cpt-event.php:368
+msgid "Jul"
+msgstr "Jul."
+
+#: inc/shortcode-calendar.php:310 inc/shortcode-calendar.php:406
+msgid "July"
+msgstr "Juli"
+
+#: inc/CPT/cpt-event.php:72 inc/CPT/cpt-event.php:367
+msgid "Jun"
+msgstr "Jun."
+
+#: inc/shortcode-calendar.php:309 inc/shortcode-calendar.php:405
+msgid "June"
+msgstr "Juni"
+
+#: inc/CPT/cpt-event.php:144 inc/CPT/cpt-event.php:562
+#: inc/CPT/cpt-location.php:18
+msgid "Location"
+msgstr "Veranstaltungsort"
+
+#: inc/CPT/cpt-location.php:36
+msgid "Locations"
+msgstr "Veranstaltungsorte"
+
+#: inc/CPT/cpt-event.php:69 inc/CPT/cpt-event.php:364
+msgid "Mar"
+msgstr "Mär."
+
+#: inc/shortcode-calendar.php:306 inc/shortcode-calendar.php:402
+msgid "March"
+msgstr "März"
+
+#: inc/shortcode-calendar.php:308 inc/shortcode-calendar.php:404
+#: inc/CPT/cpt-event.php:71 inc/CPT/cpt-event.php:366
+msgid "May"
+msgstr "Mai"
+
+#: inc/CPT/cpt-event.php:303
+msgid "Mon"
+msgstr "Mo."
+
+#: inc/CPT/cpt-event.php:82 inc/CPT/custom-fields.php:84
+msgid "Monday"
+msgstr "Montag"
+
+#: inc/shortcode-calendar.php:140
+msgid "Month"
+msgstr "Monat"
+
+#: inc/CPT/cpt-event.php:279
+msgid "Monthly"
+msgstr "Monatlich"
+
+#. Name of the plugin
+msgid "My Event Calendar"
+msgstr "My Event Calendar"
+
+#: inc/CPT/cpt-event.php:17
+msgid "New Event"
+msgstr "Neue Veranstaltung"
+
+#: inc/CPT/cpt-location.php:15
+msgid "New Location"
+msgstr "Neuer Veranstaltungsort"
+
+#: inc/CPT/cpt-organizer.php:15
+msgid "New Organizer"
+msgstr "Neuer Veranstalter"
+
+#: inc/CPT/cpt-event.php:23
+msgid "No Events found in Trash."
+msgstr "Keine Veranstaltungen im Papierkorb gefunden."
+
+#: inc/CPT/cpt-event.php:22
+msgid "No Events found."
+msgstr "Keine Veranstaltungen gefunden."
+
+#: inc/shortcode-events.php:134
+msgid "No events scheduled."
+msgstr "Keine bevorstehenden Veranstaltungen."
+
+#: inc/CPT/custom-fields.php:38
+msgid "No location found. Please enter location first."
+msgstr ""
+"Kein Veranstaltungsort gefunden. Bitte geben Sie zuerst einen "
+"Veranstaltungsort ein."
+
+#: inc/CPT/cpt-location.php:21
+msgid "No Locations found in Trash."
+msgstr "Keine Veranstaltungsorte im Papierkorb gefunden."
+
+#: inc/CPT/cpt-location.php:20
+msgid "No Locations found."
+msgstr "Keine Veranstaltungsorte gefunden."
+
+#: inc/CPT/cpt-organizer.php:21
+msgid "No Organizers found in Trash."
+msgstr "Keine Veranstalter im Papierkorb gefunden."
+
+#: inc/CPT/cpt-organizer.php:20
+msgid "No Organizers found."
+msgstr "Keine Veranstalter gefunden."
+
+#: inc/CPT/custom-fields.php:12
+msgid "No organizers found. Please enter organizers first."
+msgstr ""
+"Keine Veranstalter gefunden. Bitte geben Sie zuerst einen Veranstalter ein."
+
+#: inc/CPT/cpt-event.php:77 inc/CPT/cpt-event.php:372
+msgid "Nov"
+msgstr "Nov."
+
+#: inc/shortcode-calendar.php:314 inc/shortcode-calendar.php:410
+msgid "November"
+msgstr "November"
+
+#: inc/CPT/cpt-event.php:76 inc/CPT/cpt-event.php:371
+msgid "Oct"
+msgstr "Okt."
+
+#: inc/shortcode-calendar.php:313 inc/shortcode-calendar.php:409
+msgid "October"
+msgstr "Oktober"
+
+#: inc/CPT/cpt-event.php:344 inc/CPT/cpt-event.php:353
+msgid "of month"
+msgstr "des Monats"
+
+#: inc/shortcode-calendar.php:269 inc/CPT/cpt-organizer.php:18
+#: inc/CPT/cpt-event.php:127 inc/CPT/cpt-event.php:552
+msgid "Organizer"
+msgstr "Veranstalter"
+
+#: inc/CPT/cpt-organizer.php:69
+msgid "Organizer Information"
+msgstr "Informationen zum Veranstalter"
+
+#: inc/CPT/cpt-organizer.php:36
+msgid "Organizers"
+msgstr "Veranstalter"
+
+#: inc/CPT/cpt-event.php:24
+msgctxt ""
+"Overrides the “Featured Image” phrase for this post type. Added in 4.3"
+msgid "Event Logo"
+msgstr "Veranstaltungsbild"
+
+#: inc/CPT/cpt-location.php:22
+msgctxt ""
+"Overrides the “Featured Image” phrase for this post type. Added in 4.3"
+msgid "Location Image"
+msgstr "Bild des Veranstaltungsortes"
+
+#: inc/CPT/cpt-organizer.php:22
+msgctxt ""
+"Overrides the “Featured Image” phrase for this post type. Added in 4.3"
+msgid "Organizer Image"
+msgstr "Veranstalterlogo"
+
+#: inc/CPT/cpt-event.php:29
+msgctxt ""
+"Overrides the “Insert into post”/”Insert into page” phrase (used when "
+"inserting media into a post). Added in 4.4"
+msgid "Insert into event"
+msgstr "In die Veranstaltung einfügen"
+
+#: inc/CPT/cpt-location.php:27
+msgctxt ""
+"Overrides the “Insert into post”/”Insert into page” phrase (used when "
+"inserting media into a post). Added in 4.4"
+msgid "Insert into location"
+msgstr "In den Veranstaltungsort einfügen"
+
+#: inc/CPT/cpt-organizer.php:27
+msgctxt ""
+"Overrides the “Insert into post”/”Insert into page” phrase (used when "
+"inserting media into a post). Added in 4.4"
+msgid "Insert into organizer"
+msgstr "Zum Veranstalter hinzufügen"
+
+#: inc/CPT/cpt-event.php:26
+msgctxt ""
+"Overrides the “Remove featured image” phrase for this post type. Added in 4.3"
+msgid "Remove event logo"
+msgstr "Veranstaltungsbild entfernen"
+
+#: inc/CPT/cpt-location.php:24
+msgctxt ""
+"Overrides the “Remove featured image” phrase for this post type. Added in 4.3"
+msgid "Remove location image"
+msgstr "Bild des Veranstaltungsortes entfernen"
+
+#: inc/CPT/cpt-organizer.php:24
+msgctxt ""
+"Overrides the “Remove featured image” phrase for this post type. Added in 4.3"
+msgid "Remove organizer image"
+msgstr "Veranstalterlogo entfernen"
+
+#: inc/CPT/cpt-event.php:25
+msgctxt ""
+"Overrides the “Set featured image” phrase for this post type. Added in 4.3"
+msgid "Set event logo"
+msgstr "Veranstaltungsbild festlegen"
+
+#: inc/CPT/cpt-location.php:23
+msgctxt ""
+"Overrides the “Set featured image” phrase for this post type. Added in 4.3"
+msgid "Set location image"
+msgstr "Bild des Veranstaltungsortes festlegen"
+
+#: inc/CPT/cpt-organizer.php:23
+msgctxt ""
+"Overrides the “Set featured image” phrase for this post type. Added in 4.3"
+msgid "Set organizer image"
+msgstr "Veranstalterlogo festlegen"
+
+#: inc/CPT/cpt-event.php:30
+msgctxt ""
+"Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used "
+"when viewing media attached to a post). Added in 4.4"
+msgid "Uploaded to this event"
+msgstr "Zu dieser Veranstaltung hochgeladen"
+
+#: inc/CPT/cpt-location.php:28
+msgctxt ""
+"Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used "
+"when viewing media attached to a post). Added in 4.4"
+msgid "Uploaded to this location"
+msgstr "Zu diesem Veranstaltungsort hochgeladen"
+
+#: inc/CPT/cpt-organizer.php:28
+msgctxt ""
+"Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used "
+"when viewing media attached to a post). Added in 4.4"
+msgid "Uploaded to this organizer"
+msgstr "Zu diesem Veranstalter hochgeladen"
+
+#: inc/CPT/cpt-event.php:27
+msgctxt ""
+"Overrides the “Use as featured image” phrase for this post type. Added in 4.3"
+msgid "Use as event logo"
+msgstr "Als Veranstaltungsbild verwenden"
+
+#: inc/CPT/cpt-location.php:25
+msgctxt ""
+"Overrides the “Use as featured image” phrase for this post type. Added in 4.3"
+msgid "Use as location image"
+msgstr "Als Bild des Veranstaltungsortes verwenden"
+
+#: inc/CPT/cpt-organizer.php:25
+msgctxt ""
+"Overrides the “Use as featured image” phrase for this post type. Added in 4.3"
+msgid "Use as organizer image"
+msgstr "Als Veranstalterlogo verwenden"
+
+#: inc/CPT/cpt-organizer.php:73 inc/CPT/cpt-organizer.php:112
+msgid "Phone (landline)"
+msgstr "Telefon (Festnetz)"
+
+#: inc/CPT/cpt-organizer.php:79 inc/CPT/cpt-organizer.php:115
+msgid "Phone (mobile)"
+msgstr "Telefon (mobil)"
+
+#: inc/CPT/custom-fields.php:14 inc/CPT/custom-fields.php:40
+msgid "Please select"
+msgstr "Bitte auswählen"
+
+#: inc/CPT/cpt-event.php:11
+msgctxt "Post type general name"
+msgid "Events"
+msgstr "Veranstaltungen"
+
+#: inc/CPT/cpt-location.php:9
+msgctxt "Post type general name"
+msgid "Locations"
+msgstr "Veranstaltungsorte"
+
+#: inc/CPT/cpt-organizer.php:9
+msgctxt "Post type general name"
+msgid "Organizers"
+msgstr "Veranstalter"
+
+#: inc/CPT/cpt-event.php:12
+msgctxt "Post type singular name"
+msgid "Event"
+msgstr "Veranstaltung"
+
+#: inc/CPT/cpt-location.php:10
+msgctxt "Post type singular name"
+msgid "Location"
+msgstr "Veranstaltungsort"
+
+#: inc/CPT/cpt-organizer.php:10
+msgctxt "Post type singular name"
+msgid "Organizer"
+msgstr "Veranstalter"
+
+#: inc/CPT/cpt-location.php:76
+msgid "Postal Code"
+msgstr "Postleitzahl"
+
+#: inc/CPT/cpt-event.php:151 inc/CPT/cpt-event.php:568
+msgid "Prices"
+msgstr "Preise"
+
+#: inc/shortcode-calendar.php:542
+msgid "Read more"
+msgstr "Weiterlesen"
+
+#: inc/CPT/cpt-event.php:248
+msgid "Repeat"
+msgstr "Wiederholen"
+
+#: inc/CPT/cpt-event.php:272
+msgid "Repeat Interval"
+msgstr "Wiederholungsintervall"
+
+#: inc/CPT/cpt-event.php:254
+msgid "Repeat until"
+msgstr "Wiederholen bis"
+
+#: inc/CPT/cpt-event.php:285
+msgid "Repeats"
+msgstr "Wiederholt sich"
+
+#: inc/CPT/cpt-event.php:298 inc/CPT/cpt-event.php:338
+#: inc/CPT/cpt-event.php:348 inc/CPT/cpt-event.php:357
+msgid "Repeats on"
+msgstr "Wiederholt sich an"
+
+#: inc/CPT/cpt-event.php:308
+msgid "Sat"
+msgstr "Sa."
+
+#: inc/CPT/cpt-event.php:87 inc/CPT/custom-fields.php:89
+msgid "Saturday"
+msgstr "Samstag"
+
+#: inc/CPT/cpt-event.php:196
+msgid "Schedule"
+msgstr "Zeitplan"
+
+#: inc/CPT/cpt-event.php:31
+msgctxt ""
+"Screen reader text for the filter links heading on the post type listing "
+"screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4"
+msgid "Filter events list"
+msgstr "Veranstaltungen filtern"
+
+#: inc/CPT/cpt-location.php:29
+msgctxt ""
+"Screen reader text for the filter links heading on the post type listing "
+"screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4"
+msgid "Filter location list"
+msgstr "Veranstaltungsorte filtern"
+
+#: inc/CPT/cpt-organizer.php:29
+msgctxt ""
+"Screen reader text for the filter links heading on the post type listing "
+"screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4"
+msgid "Filter organizer list"
+msgstr "Veranstalter filtern"
+
+#: inc/CPT/cpt-event.php:33
+msgctxt ""
+"Screen reader text for the items list heading on the post type listing "
+"screen. Default “Posts list”/”Pages list”. Added in 4.4"
+msgid "Events list"
+msgstr "Liste der Veranstaltungen"
+
+#: inc/CPT/cpt-location.php:31
+msgctxt ""
+"Screen reader text for the items list heading on the post type listing "
+"screen. Default “Posts list”/”Pages list”. Added in 4.4"
+msgid "Location list"
+msgstr "Liste der Veranstaltungsorte"
+
+#: inc/CPT/cpt-organizer.php:31
+msgctxt ""
+"Screen reader text for the items list heading on the post type listing "
+"screen. Default “Posts list”/”Pages list”. Added in 4.4"
+msgid "Organizer list"
+msgstr "Liste der Veranstalter"
+
+#: inc/CPT/cpt-event.php:32
+msgctxt ""
+"Screen reader text for the pagination heading on the post type listing "
+"screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4"
+msgid "Events list navigation"
+msgstr "Navigation für Veranstalterliste"
+
+#: inc/CPT/cpt-location.php:30
+msgctxt ""
+"Screen reader text for the pagination heading on the post type listing "
+"screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4"
+msgid "Location list navigation"
+msgstr "Navigation für Liste der Veranstaltungsorte"
+
+#: inc/CPT/cpt-organizer.php:30
+msgctxt ""
+"Screen reader text for the pagination heading on the post type listing "
+"screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4"
+msgid "Organizer list navigation"
+msgstr "Navigation für Liste der Veranstalter"
+
+#: inc/CPT/cpt-event.php:21
+msgid "Search Events"
+msgstr "Veranstaltungen durchsuchen"
+
+#: inc/CPT/cpt-location.php:19
+msgid "Search Location"
+msgstr "Veranstaltungsorte durchsuchen"
+
+#: inc/CPT/cpt-organizer.php:19
+msgid "Search Organizer"
+msgstr "Veranstalter durchsuchen"
+
+#: inc/CPT/custom-fields.php:74
+msgid "second"
+msgstr "zweite"
+
+#: inc/CPT/cpt-event.php:75 inc/CPT/cpt-event.php:370
+msgid "Sep"
+msgstr "Sep."
+
+#: inc/shortcode-calendar.php:312 inc/shortcode-calendar.php:408
+msgid "September"
+msgstr "September"
+
+#: inc/CPT/cpt-event.php:203
+msgid "Start"
+msgstr "Start"
+
+#: inc/CPT/cpt-location.php:70
+msgid "Street"
+msgstr "Straße"
+
+#: inc/CPT/cpt-event.php:309
+msgid "Sun"
+msgstr "So."
+
+#: inc/CPT/cpt-event.php:81 inc/CPT/custom-fields.php:90
+msgid "Sunday"
+msgstr "Sonntag"
+
+#: inc/CPT/cpt-event.php:28
+msgctxt ""
+"The post type archive label used in nav menus. Default “Post Archives”. "
+"Added in 4.4"
+msgid "Event archives"
+msgstr "Veranstaltungsarchiv"
+
+#: inc/CPT/cpt-location.php:26
+msgctxt ""
+"The post type archive label used in nav menus. Default “Post Archives”. "
+"Added in 4.4"
+msgid "Location archives"
+msgstr "Archiv Veranstaltungsorte"
+
+#: inc/CPT/cpt-organizer.php:26
+msgctxt ""
+"The post type archive label used in nav menus. Default “Post Archives”. "
+"Added in 4.4"
+msgid "Organizer archives"
+msgstr "Archiv Veranstalter"
+
+#: inc/CPT/custom-fields.php:75
+msgid "third"
+msgstr "dritte"
+
+#: inc/CPT/cpt-event.php:306
+msgid "Thu"
+msgstr "Do."
+
+#: inc/CPT/cpt-event.php:85 inc/CPT/custom-fields.php:87
+msgid "Thursday"
+msgstr "Donnerstag"
+
+#: inc/CPT/cpt-event.php:572
+msgid "Tickets"
+msgstr "Tickets"
+
+#: inc/CPT/cpt-event.php:162
+msgid "Tickets URL"
+msgstr "URL Ticketshop"
+
+#: inc/CPT/cpt-event.php:434
+msgid "Time"
+msgstr "Zeit"
+
+#: inc/CPT/cpt-event.php:304
+msgid "Tue"
+msgstr "Di."
+
+#: inc/CPT/cpt-event.php:83 inc/CPT/custom-fields.php:85
+msgid "Tuesday"
+msgstr "Dienstag"
+
+#: inc/shortcode-calendar.php:139
+msgid "View day"
+msgstr "Tag ansehen"
+
+#: inc/shortcode-calendar.php:360
+msgid "View Details"
+msgstr "Details ansehen"
+
+#: inc/CPT/cpt-event.php:19
+msgid "View Event"
+msgstr "Veranstaltung ansehen"
+
+#: inc/CPT/cpt-location.php:17
+msgid "View Location"
+msgstr "Veranstaltungsort ansehen"
+
+#: inc/shortcode-calendar.php:140
+msgid "View monthly calendar"
+msgstr "Monatskalender ansehen"
+
+#: inc/CPT/cpt-organizer.php:17
+msgid "View Organizer"
+msgstr "Veranstalter ansehen"
+
+#: inc/shortcode-calendar.php:141
+msgid "View yearly calendar"
+msgstr "Jahreskalender ansehen"
+
+#: inc/CPT/cpt-event.php:454
+msgid "Wdh."
+msgstr "Wdh."
+
+#: inc/CPT/cpt-organizer.php:91 inc/CPT/cpt-organizer.php:121
+#: inc/CPT/cpt-location.php:88 inc/CPT/cpt-location.php:130
+msgid "Website"
+msgstr "Website"
+
+#: inc/CPT/cpt-event.php:305
+msgid "Wed"
+msgstr "Mi."
+
+#: inc/CPT/cpt-event.php:84 inc/CPT/custom-fields.php:86
+msgid "Wednesday"
+msgstr "Mittwoch"
+
+#: inc/CPT/cpt-event.php:294
+msgid "week(s)"
+msgstr "Woche(n)"
+
+#: inc/CPT/cpt-event.php:329
+msgid "Weekday"
+msgstr "Wochentag"
+
+#: inc/CPT/cpt-event.php:278
+msgid "Weekly"
+msgstr "Wöchentlich"
+
+#: inc/shortcode-calendar.php:141
+msgid "Year"
+msgstr "Jahr"
