@@ -180,6 +180,7 @@
                 }
             }
             .event {
+                display: block;
                 position: relative;
                 text-align: left;
                 min-width: 0;
@@ -288,7 +289,7 @@
                     }
                 }
             }
-            .event-date { }
+            .mec-event-date { }
             .event-title {
                 //font-weight: bold;
                 a {
@@ -305,13 +306,13 @@
                     word-break: break-word;
                 }
             }
-            .event-date,
+            .mec-event-date,
             .event-time {
                 font-style: italic;
                 color: #666;
             }
-            .event-date {
-                font-weight: bold;
+            .mec-event-date {
+                //font-weight: bold;
             }
             .event-start {
                 //border-top-left-radius: 6px;
@@ -346,7 +347,7 @@
  */
 .mec-sc-events,
 #secondary .mec-sc-events {
-    ul.events-list {
+    ul.mec-events-list {
         list-style-type: none;
         //padding-left: 22px;
         margin-left: 0;
@@ -368,7 +369,7 @@
                 }
 
             }
-            .event-date {
+            .mec-event-date {
                 color: #666;
                 font-style: italic;
             }
@@ -385,11 +386,11 @@
             padding-top: 1em;
             border-top: 1px solid #c3c3cb;
         }
-        .event-title {
+        .mec-event-title {
             font-size: 1.2em;
             margin-bottom: .5em;
         }
-        .event-dateblock {
+        .mec-event-dateblock {
             position: relative;
             background-color: #666;
             color: #fff;
@@ -428,10 +429,12 @@
 
     .schedule {
         ul {
-            list-style-type: none;
             padding-left: 0;
+            li {
+                list-style-type: none;
+            }
         }
-        .event-date {
+        .mec-event-date {
             color: #666;
             font-style: italic;
         }
@@ -471,10 +474,10 @@
     }
     ul {
         margin-bottom: 0;
-        list-style-type: none;
+        margin-left: 0;
         padding-left: 0;
         li {
-            // display: inline-block;
+            list-style-type: none;
         }
     }
     .dashicons {
@@ -501,6 +504,11 @@
     span.label {
         display: inline-block;
         min-width: 140px;
+        font-weight: bold;
+    }
+}
+.mec-description {
+    span.label {
         font-weight: bold;
     }
 }

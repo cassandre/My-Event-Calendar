@@ -114,11 +114,17 @@ function mec_renderMonthDayField( $field, $value, $object_id, $object_type, $fie
 
 add_filter( 'cmb2_render_event_items', 'mec_renderEventItemsField', 10, 5 );
 function mec_renderEventItemsField( $field, $value, $object_id, $object_type, $field_type ) {
-    echo '<ul style="columns: 4 150px;">';
     $eventItems = get_post_meta($object_id, 'event-items', true);
-    foreach ($eventItems as $start => $eventItem) {
-        //echo '<li>' . date_i18n(get_option('date_format'), $start) . '</li>';
-        echo '<li>' . date('Y-m-d', $start) . '</li>';
+    if (is_array($eventItems)) {
+        echo '<ul style="columns: 4 150px;">';
+        foreach ($eventItems as $TSstart_ID => $TSend) {
+            $start = explode('#', $TSstart_ID)[0];
+            echo '<li>' . date_i18n(get_option('date_format'), $start) . '</li>';
+            //echo '<li>' . date('Y-m-d', $start) . '</li>';
+        }
+        echo '</ul>';
+        echo '<p class="description">' . __('Only event items of one year are listed, even if no end date is set.', 'my-event-calendar') . '</p>';
+    } else {
+        _e('No events found.', 'my-event-calendar');
     }
-    echo '</ul>';
 }

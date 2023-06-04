@@ -77,16 +77,17 @@ function shortcodeEvents( $atts ) {
         foreach ($events as $event) {
             $eventItems = get_post_meta($event->ID, 'event-items', true);
             if (!empty($eventItems)) {
-                foreach ($eventItems as $start => $end) {
+                foreach ($eventItems as $TSstart_ID => $TSend) {
+                    $start = explode('#', $TSstart_ID)[0];
                     $eventsArray[$start][$i]['id'] = $event->ID;
-                    $eventsArray[$start][$i]['end'] = $end;
+                    $eventsArray[$start][$i]['end'] = $TSend;
                     $i++;
                 }
             }
         }
         ksort($eventsArray);
         if ($display == 'list') {
-            $output .= '<ul class="events-list">';
+            $output .= '<ul class="mec-events-list">';
             $i = 0;
             foreach ($eventsArray as $timestamp => $events) {
                 if ($timestamp >= time()) {
@@ -94,8 +95,8 @@ function shortcodeEvents( $atts ) {
                         $eventTitle = get_the_title($event['id']);
                         $eventURL = get_the_permalink($event['id']);
                         $eventTitle = '<a href="' . $eventURL . '">' . $eventTitle . '</a>';
-                        $output .= '<li><span class="event-date"> ' . date_i18n('D, d.m.Y', $timestamp) . '<span class="dashicons dashicons-clock"></span>' . date_i18n('H:i', $timestamp) . '</span><br />'
-                            . '<span class="event-title">' . $eventTitle . '</span></li>';
+                        $output .= '<li><span class="mec-event-date"> ' . date_i18n('D, d.m.Y', $timestamp) . '<span class="dashicons dashicons-clock"></span>' . date_i18n('H:i', $timestamp) . '</span><br />'
+                            . '<span class="mec-event-title">' . $eventTitle . '</span></li>';
                         $i++;
                         if ($i >= $number) break 2;
                     }

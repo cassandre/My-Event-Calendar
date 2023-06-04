@@ -147,6 +147,12 @@ function mec_eventFields() {
         'type' => 'multicheck',
         'options' => $locationOptions,
     ]);
+    $cmb_info->add_field( array(
+        'name' => esc_html__( 'VC URL', 'my-event-calendar' ),
+        //'desc' => esc_html__( '', 'my-event-calendar' ),
+        'id'   => 'vc-url',
+        'type' => 'text_url',
+    ) );
     $cmb_info->add_field([
         'name' => __('Prices', 'my-event-calendar'),
         //'desc'    => __('', 'my-event-calendar'),
@@ -356,7 +362,7 @@ function mec_eventFields() {
     $cmb_schedule->add_field([
         'name' => __('Repeats on', 'my-event-calendar'),
         //'desc'    => __('', 'my-event-calendar'),
-        'id' => 'monthly-month',
+        'id' => 'repeat-monthly-month',
         'type' => 'multicheck_inline',
         'options' => [
             'jan' => __('Jan', 'my-event-calendar'),
@@ -375,7 +381,7 @@ function mec_eventFields() {
         'classes'   => ['repeat', 'repeat-monthly'],
     ]);
     $cmb_schedule->add_field([
-        'name' => __('Event Items', 'my-event-calendar'),
+        'name' => __('Upcoming Event Items', 'my-event-calendar'),
         //'desc'    => __('', 'my-event-calendar'),
         'id' => 'event-items',
         'type' => 'event_items',
@@ -390,7 +396,7 @@ function mec_saveEvent( $post_id ) {
         return $post_id;
     }
 
-    $eventList = mec_build_events_list([get_post($post_id)], false);
+    $eventList = mec_build_events_list([get_post($post_id)], true);
     //var_dump($eventList);
     update_post_meta($post_id, 'event-items', $eventList);
 
@@ -420,7 +426,7 @@ function mec_saveEvent( $post_id ) {
 add_action('updated_post_meta', 'mec_updatedMeta', 10, 4);
 function mec_updatedMeta($meta_id, $post_id, $meta_key='', $meta_value='') {
     //if ($meta_key =='_edit_lock') {
-        $eventList = mec_build_events_list([get_post($post_id)], false);
+        $eventList = mec_build_events_list([get_post($post_id)], true);
         update_post_meta($post_id, 'event-items', $eventList);
     //}
 }
@@ -473,12 +479,14 @@ function mec_event_taxonomies() {
     );
     $args_type = array(
         'labels' => $labels_type,
+        'public'       => true,
         'hierarchical' => true,
-        'rewrite' => false
+        'show_admin_column' => true,
     );
     register_taxonomy('event-category', 'event', $args_type);
 }
 
+add_action( 'cmb2_admin_init', 'mec_event_category_fields' );
 function mec_event_category_fields() {
     $cmb_rest = new_cmb2_box( array(
         'id'           => 'event_category_color',
@@ -499,8 +507,57 @@ function mec_event_category_fields() {
         ),
     ) );
 }
-add_action( 'cmb2_admin_init', 'mec_event_category_fields' );
 
+add_filter( 'pre_get_posts', 'mec_add_event_to_archiving');
+function mec_add_event_to_archiving( $query ) {
+    if ( $query->is_main_query() && is_tax( 'event-category' ) ) {
+        $query->set( 'post_type', array(
+            'event',
+        ) );
+
+        return $query;
+    }
+}
+add_filter( 'get_the_excerpt', 'mec_excerptEvent', 99);
+function mec_excerptEvent($excerpt) {
+    if (get_post_type() !== 'event')
+        return $excerpt;
+
+    $id = get_the_ID();
+    $meta = get_post_meta($id);
+    $output = '';
+    $eventItems = mec_get_meta($meta, 'event-items');
+    $output .= '<div class="mec-event" itemscope itemtype="http://schema.org/Event">
+        <meta itemprop="name" content="' . get_the_title() . '">
+        <div class="mec-schedule">
+        <ul>';
+    $i = 0;
+    foreach ($eventItems as $TSstart_ID => $TSend) {
+        $TSstart = explode('#', $TSstart_ID)[0];
+        $startDay = date('Y-m-d', $TSstart);
+        $endDay = date('Y-m-d', $TSend);
+        if ($endDay == $startDay) {
+            $eventEnd = date('H:i \U\h\r', $TSend);
+        } else {
+            $eventEnd = date_i18n('D, d.m.Y - H:i', $TSend);
+        }
+        $output .= '<li><span class="dashicons dashicons-calendar"></span><span class="mec-event-date">' . date_i18n('D, d.m.Y - H:i', $TSstart) . '</span> ' . _x('to', 'for duration', 'my-event-calendar') . ' <span class="mec-event-time">' . $eventEnd . '</span>'
+            . '<meta itemprop="startDate" content="'. date_i18n('c', $TSstart) . '">'
+            . '<meta itemprop="endDate" content="'. date_i18n('c', $TSend) . '">'
+            . '</li>';
+        $i++;
+        if ($i > 2) break;
+    }
+    if ($i < count($eventItems)) {
+        $output .= '<li>&hellip;</li>';
+    }
+    $output .= '</ul>
+    </div>';
+    $output .= '<div itemprop="description">' . $excerpt . '</div></div>';
+    return $output;
+}
+
+add_filter( 'the_content', 'mec_contentEvent', 99);
 function mec_contentEvent( $content ) {
     if (get_post_type() !== 'event')
         return $content;
@@ -510,21 +567,29 @@ function mec_contentEvent( $content ) {
     $output = '';
     $eventItems = mec_get_meta($meta, 'event-items');
     $scheduleClass = count($eventItems) > 3 ? 'cols-2' : '';
-    $output .= '<div class="mec-schedule ' . $scheduleClass . '">
+    $output .= '<div class="mec-event" itemscope itemtype="http://schema.org/Event">
+        <meta itemprop="name" content="' . get_the_title() . '">
+        <div class="mec-schedule ' . $scheduleClass . '">
         <ul>';
-    foreach ($eventItems as $start => $end) {
-        $startDay = date('Y-m-d', $start);
-        $endDay = date('Y-m-d', $end);
-        if ($endDay == $startDay) {
-            $eventEnd = date('H:i \U\h\r', $end);
-        } else {
-            $eventEnd = date_i18n('D, d.m.Y - H:i', $end);
+    foreach ($eventItems as $TSstart_ID => $TSend) {
+        $TSstart = explode('#', $TSstart_ID)[0];
+        if ($TSstart >= time()) {
+            $startDay = date('Y-m-d', $TSstart);
+            $endDay = date('Y-m-d', $TSend);
+            if ($endDay == $startDay) {
+                $eventEnd = date('H:i \U\h\r', $TSend);
+            } else {
+                $eventEnd = date_i18n('D, d.m.Y - H:i', $TSend);
+            }
+            $output .= '<li><span class="dashicons dashicons-calendar"></span><span class="mec-event-date">' . date_i18n('D, d.m.Y - H:i', $TSstart) . '</span> ' . _x('to', 'for duration', 'my-event-calendar') . ' <span class="mec-event-time">' . $eventEnd . '</span>'
+                . '<meta itemprop="startDate" content="'. date_i18n('c', $TSstart) . '">'
+                . '<meta itemprop="endDate" content="'. date_i18n('c', $TSend) . '">'
+                .'</li>';
         }
-        $output .= '<li><span class="dashicons dashicons-calendar"></span><span class="event-date">' . date_i18n('D, d.m.Y - H:i', $start) . '</span> ' . _x('to', 'for duration', 'my-event-calendar') . ' <span class="event-date">' . $eventEnd . '</span></li>';
     }
     $output .= '</ul>
     </div>';
-    $output .= '<div class="mec-description">';
+    $output .= '<div class="mec-description" itemprop="description">';
     // Description
     $description = mec_get_meta($meta, 'description');
     $output .= wpautop($description);
@@ -549,7 +614,7 @@ function mec_contentEvent( $content ) {
             //$organizers[] = '<a href="' . get_permalink($organizerID) . '">' . get_the_title($organizerID) . '</a>';
             $organizers[] = get_the_title($organizerID);
         }
-        $output .= '<p><span class="label">' . __('Organizer', 'my-event-calendar') . ':</span> ' . implode(', ', $organizers) . '</p>';
+        $output .= '<p itemprop="organizer" itemscope><span class="label">' . __('Organizer', 'my-event-calendar') . ':</span> ' . implode(', ', $organizers) . '</p>';
     }
 
     // Location
@@ -559,13 +624,17 @@ function mec_contentEvent( $content ) {
         foreach ($locationIDs as $locationID) {
             $locations[] = '<a href="' . get_permalink($locationID) . '">' . get_the_title($locationID) . '</a>';
         }
-        $output .= '<p><span class="label">' . __('Location', 'my-event-calendar') . ':</span> ' . implode(', ', $locations) . '</p>';
+        $output .= '<p itemprop="location" itemscope><span class="label">' . __('Location', 'my-event-calendar') . ':</span> ' . implode(', ', $locations) . '</p>';
+    }
+    $vc_url = mec_get_meta($meta, 'vc-url');
+    if ($vc_url != '') {
+        $output .= '<p itemprop="location" itemscope itemtype="http://schema.org/VirtualLocation">><span class="label">' . __('Video Conference Link', 'my-event-calendar') . ':</span> <a itemprop="url" href="'. $vc_url . '">' . $vc_url . '</a>';
     }
 
     // Prices + Tickets
     $prices = mec_get_meta($meta, 'prices');
     if ($prices != '') {
-        $output .= '<div><span class="label" style="float:left;">' . __('Prices', 'my-event-calendar') . ':</span><div class="prices">' . wpautop($prices) . '</div></div>';
+        $output .= '<div itemprop="offers" itemscope itemtype="https://schema.org/Offer"><span class="label" style="float:left;">' . __('Prices', 'my-event-calendar') . ':</span><div class="prices">' . wpautop($prices) . '</div></div>';
     }
     $url = mec_get_meta($meta, 'tickets-url');
     if ($url != '') {
@@ -587,9 +656,8 @@ function mec_contentEvent( $content ) {
         $output .=  implode('</li><li>', $downloadList);
         $output .=  '</li></ul></div>';
     }
-    $output .= '</div>';
+    $output .= '</div></div>';
     return $output;
 }
-add_filter( 'the_content', 'mec_contentEvent', 99);
 
 

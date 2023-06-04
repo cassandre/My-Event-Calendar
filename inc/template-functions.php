@@ -60,7 +60,7 @@ function mec_build_events_list($events, $upcomingOnly = true) {
         $startMinute = date('i', $startTS);
         if ($repeat !== 'on' && (($upcomingOnly && $startTS >= time()) || !$upcomingOnly)) {
             // not repeating event
-            $eventsArray[$startTS] = $startTS + $duration;
+            $eventsArray[$startTS.'#'.$event->ID] = $startTS + $duration;
         } else {
             // repeating event
             $repeatInterval = mec_get_meta($meta, 'repeat-interval');
@@ -76,8 +76,8 @@ function mec_build_events_list($events, $upcomingOnly = true) {
             if ($lastDate != '') {
                 $end = DateTime::createFromFormat( 'U', ($lastDate + (60*60*24-1)));
             } else {
-                $end = clone $start;
-                $end->add(new DateInterval('P1Y')); // Move to 1 year from start
+                $end = clone $todayDate;
+                $end->add(new DateInterval('P1Y7D')); // Move to 1 year from start
             }
             switch ($repeatInterval) {
                 case 'week':
@@ -94,7 +94,7 @@ function mec_build_events_list($events, $upcomingOnly = true) {
                             foreach ($d as $date) {
                                 $date->add(new DateInterval('PT'.$startHour.'H'.$startMinute.'M'));
                                 if (!$upcomingOnly || ($upcomingOnly && $date >= $todayDate)) {
-                                    $eventsArray[$date->getTimestamp()] = $date->getTimestamp() + $duration;
+                                    $eventsArray[$date->getTimestamp().'#'.$event->ID] = $date->getTimestamp() + $duration;
                                 }
                             }
                         }
@@ -103,10 +103,11 @@ function mec_build_events_list($events, $upcomingOnly = true) {
                     $exceptionsRaw = mec_get_meta($meta,'exceptions');
                     if (!empty($exceptionsRaw)) {
                         $exceptions = explode("\n", str_replace("\r", '', $exceptionsRaw));
-                        foreach ($eventsArray as $start => $end) {
+                        foreach ($eventsArray as $TSstart_ID => $TSend) {
+                            $start = explode('#', $TSstart_ID)[0];
                             $dayFormatted = date('Y-m-d', $start);
                             if (in_array($dayFormatted, $exceptions)) {
-                                unset($eventsArray[$start]);
+                                unset($eventsArray[$TSstart_ID]);
                             }
                         }
                     }
@@ -129,8 +130,7 @@ function mec_build_events_list($events, $upcomingOnly = true) {
                             foreach ($d as $date) {
                                 $date->add(new DateInterval('PT'.$startHour.'H'.$startMinute.'M'));
                                 if (!$upcomingOnly || ($upcomingOnly && $date >= $todayDate)) {
-                                    $eventsArray[$date->getTimestamp()][$i]['id'] = $event->ID;
-                                    $eventsArray[$date->getTimestamp()][$i]['end'] = $date->getTimestamp() + $duration;
+                                    $eventsArray[$date->getTimestamp().'#'.$event->ID] = $date->getTimestamp() + $duration;
                                 }
                             }
                         }
@@ -146,21 +146,19 @@ function mec_build_events_list($events, $upcomingOnly = true) {
                         }
                         while ($start <= $end) {
                             $start->add(new DateInterval('PT'.$startHour.'H'.$startMinute.'M'));
-                            if (!$upcomingOnly || ($upcomingOnly && $start >= $todayDate)) {
-                                $eventsArray[$start->getTimestamp()][$i]['id'] = $event->ID;
-                                $eventsArray[$start->getTimestamp()][$i]['end'] =  $start->getTimestamp() + $duration;
+                            if (!$upcomingOnly || ($upcomingOnly && $start->getTimestamp() >= $todayDate->getTimestamp())) {
+                                $eventsArray[$start->getTimestamp().'#'.$event->ID] =  $start->getTimestamp() + $duration;
                             }
                             $start->modify('first ' . $monthlyDOW ["day"] . ' of next month')->modify('+'.$diff.' week');
                         }
                     }
                     // unset unselected months
                     $months = (array)mec_get_meta($meta,'repeat-monthly-month');
-                    foreach ($eventsArray as $timestamp => $events) {
-                        foreach ($events as $event => $eventData) {
-                            $month = strtolower(date('M', $timestamp));
-                            if (!in_array($month, $months)) {
-                                unset($eventsArray[$timestamp][$event]);
-                            }
+                    foreach ($eventsArray as $TSstart_ID => $TSend) {
+                        $timestamp = explode('#', $TSstart_ID)[0];
+                        $month = strtolower(date('M', $timestamp));
+                        if (!in_array($month, $months)) {
+                            unset($eventsArray[$TSstart_ID]);
                         }
                     }
                     break;

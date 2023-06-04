@@ -95,7 +95,7 @@ function mec_CalendarShortcode($atts) {
     // Paging
     $paging = $atts['navigation'] == 'ja' ? true : false;
 
-    // Get bookings in calendar period
+    // Get events in calendar period
     $events = get_posts([
         'post_type' => 'event',
         'numberposts' => -1,
@@ -116,14 +116,15 @@ function mec_CalendarShortcode($atts) {
     foreach ($events as $event) {
         $eventItems = get_post_meta($event->ID, 'event-items', true);
         if (!empty($eventItems)) {
-            foreach ($eventItems as $start => $end) {
-                $eventsArray[$start][$i]['id'] = $event->ID;
-                $eventsArray[$start][$i]['end'] = $end;
+            foreach ($eventItems as $TSstart_ID => $TSend) {
+                $TSstart = explode('#', $TSstart_ID)[0];
+                $eventsArray[$TSstart][$i]['id'] = $event->ID;
+                $eventsArray[$TSstart][$i]['end'] = $TSend;
                 $i++;
             }
         }
     }
-    //print "<pre>";var_dump($eventItems);print "</pre>"; exit;
+    //print "<pre>";var_dump($eventsArray);print "</pre>"; exit;
     //$eventsArray = mec_build_events_list($events, false);
     //print "<pre>";var_dump($events);print "</pre>";
     /*foreach ($eventsArray as $ts => $events) {
@@ -155,7 +156,7 @@ function mec_CalendarShortcode($atts) {
 add_shortcode('mec-calendar', 'mec_CalendarShortcode');
 
 /**
- * Build a booking calendar for a defined period (month or year)
+ * Build a event calendar for a defined period (month or year)
  * @param   string  $month      If empty -> build yearly calendar
  * @param   string  $year
  * @param   string  $day
@@ -204,8 +205,8 @@ function mec_buildCalendar($year, $month, $day, $eventsArray, $layout = 'full', 
 }
 
 /**
- * Render list of bookings on one day
- * @param array $bookings
+ * Render list of events on one day
+ * @param array $events
  */
 function mec_renderDayList($year, $month, $day, $eventsArray = []) {
     $calDay = $year.'-'.str_pad($month, 2, '0', STR_PAD_LEFT).'-'.str_pad($day, 2, '0', STR_PAD_LEFT);
@@ -243,15 +244,12 @@ function mec_renderDayList($year, $month, $day, $eventsArray = []) {
             $eventTitle = '<a href="' . $eventURL . '">' . $eventTitle . '</a>';
             // Date/Time
             if ($eventStartDate == $eventEndDate) {
-                $timeText = '<span class="event-date">' . date('H:i', $eventStart) . ' - ' . date('H:i \U\h\r', $eventEnd) . '</span>';
+                $timeText = '<span class="mec-event-date">' . date('H:i', $eventStart) . ' - ' . date('H:i \U\h\r', $eventEnd) . '</span>';
             } else {
-                $timeText = '<span class="event-date">' . date_i18n(get_option( 'date_format' ) . ', H:i \U\h\r,', $eventStart) . ' bis ' . date_i18n(get_option( 'date_format' ) . ', H:i \U\h\r', $eventEnd) . '</span>';
+                $timeText = '<span class="mec-event-date">' . date_i18n(get_option( 'date_format' ) . ', H:i \U\h\r,', $eventStart) . ' bis ' . date_i18n(get_option( 'date_format' ) . ', H:i \U\h\r', $eventEnd) . '</span>';
             }
             // Location
             $locationIDs = mec_get_meta($meta, 'mec-event-location');
-            if (empty($locationIDs) && $hasSeries) {
-                $locationIDs = mec_get_meta($seriesMeta, 'mec-eventseries-location');
-            }
             if ($locationIDs != '') {
                 $locations = [];
                 foreach ($locationIDs as $locationID) {
@@ -292,7 +290,7 @@ function mec_renderDayList($year, $month, $day, $eventsArray = []) {
  * Render mini calendar month view with availability information for external use
  * @param   integer $month
  * @param   integer $year
- * @param   array   $bookings
+ * @param   array   $events
  * @param   bool    $showYear
  * @return  string
  */
@@ -379,18 +377,18 @@ function mec_renderMonthCalendarMini($year, $month,  $eventsArray = [], $showYea
 }
 
 /**
- * Render Full Calendar Month View with booking details for internal use
+ * Render Full Calendar Month View with event details for internal use
  * @param integer $month
  * @param integer $year
- * @param array $bookings
+ * @param array $events
  * @param bool $paging  Allow skipping to next/previous month
  * @param array $locations
  * @return string
  */
 
 function mec_renderMonthCalendarFull($year, $month,  $eventsArray = [], $paging = true) {
-    /*var_dump($eventsArray);
-    foreach ($eventsArray as $ts => $events) {
+    //var_dump($eventsArray);
+    /*foreach ($eventsArray as $ts => $events) {
         print date('Y-m-d', $ts) . '<br />';
     }
     exit;*/
@@ -466,6 +464,7 @@ function mec_renderMonthCalendarFull($year, $month,  $eventsArray = [], $paging 
         $week .= '<div class="no-event" style="grid-column-start: day-'.$col.'; grid-column-end: span 1; grid-row-start: 2; grid-row-end: 5" aria-hidden="true"> </div>';
 
         foreach ($eventsArray as $ts => $events) {
+            //var_dump($eventsArray);
             foreach ($events as $event) {
                 $eventStart = $ts;
                 $eventEnd = $event['end'];
@@ -492,12 +491,25 @@ function mec_renderMonthCalendarFull($year, $month,  $eventsArray = [], $paging 
                 $eventTitle = '<a href="' . $eventURL . '">' . $eventTitle . '</a>';
                 $eventTitleShort = '<a href="' . $eventURL . '">' . $eventTitleShort . '</a>';
 
-                $eventClasses = ['event'];
+                $locationMeta = '';
+                $locationIDs = mec_get_meta($meta, 'location');
+                if ($locationIDs != '') {
+                    $locations = [];
+                    foreach ($locationIDs as $locationID) {
+                        $locations[] = get_the_title($locationID);
+                    }
+                    $locationMeta .= '<meta itemprop="location" content="' . implode(', ', $locations) . '" />';
+                }
+                $vc_url = mec_get_meta($meta, 'vc-url');
+                if ($vc_url != '') {
+                    $locationMeta .= '<span itemprop="location" itemscope itemtype="http://schema.org/VirtualLocation"><meta itemprop="url" content="'. $vc_url . '" /></span>';
+                }
 
+                $eventClasses = ['event'];
                 if ($calDay == $eventStartDate) {
-                    // Bookings starting on this day
+                    // Events starting on this day
                     array_push($eventClasses, 'event-start', 'event-end');
-                    $dateClasses = ['event-date'];
+                    $dateClasses = ['mec-   event-date'];
                     $span = floor(($eventEnd - $eventStart) / (60 * 60 * 24) + 1);
                     if ($span < 1) $span = 1;
                     if ($span > 1) {
@@ -537,26 +549,29 @@ function mec_renderMonthCalendarFull($year, $month,  $eventsArray = [], $paging 
                         $excerpt = '<span>' . substr($excerpt, 0, strrpos($excerpt, ' ')) . '&hellip;</span>';
                     }
                     $rowNum = $eventsPerDay[$eventStartDate];
-                    $week .= '<div class="' . implode(' ', $eventClasses) . '" style="grid-column: day-' . $col . ' / day-' . ($col + $span) . '; grid-row: ' . ($rowNum + 1) . ' / ' . ($rowNum + 1) . '; border-color: ' . $catColor . ';">'
+                    $week .= '<div itemtype="http://schema.org/Event" itemscope class="' . implode(' ', $eventClasses) . '" style="grid-column: day-' . $col . ' / day-' . ($col + $span) . '; grid-row: ' . ($rowNum + 1) . ' / ' . ($rowNum + 1) . '; border-color: ' . $catColor . ';">'
                         . '<p><span class="' . implode(' ', $dateClasses) . '">' . $dateOut . '<br /></span>'
                         . $timeOut
-                        . '<span class="event-title">' . $eventTitleShort . '</span></p>'
+                        . '<span itemprop="name" class="event-title">' . $eventTitleShort . '</span></p>'
+                        . '<meta itemprop="startDate" content="'. date_i18n('c', $eventStart) . '">'
+                        . '<meta itemprop="endDate" content="'. date_i18n('c', $eventEnd) . '">'
+                        . $locationMeta
                         . '<div role="tooltip" aria-hidden="true">'
                             . '<p style="margin: 0;">' . $thumbnail . '</p>'
                             . '<div class="event-title">' . $eventTitle . '</div>'
                             . '<div class="event-date-time">' . $dateOut . ', ' . $timeOut . '</div>'
-                            . '<div class="event-description">' . $excerpt . ' <a href="' . $eventURL . '">' . __('Read more', 'my-event-calendar') . ' &raquo;</a></div>'
+                            . '<div itemprop="description" class="event-description">' . $excerpt . ' <a href="' . $eventURL . '">' . __('Read more', 'my-event-calendar') . ' &raquo;</a></div>'
                         . '</div>'
                         . '</div>';
 
                 } elseif (($col == 1 || $day == 1) && $calDay > $eventStartDate && $calDay <= $eventEndDate) {
-                    // Bookings continuing from past week (or past month)
+                    // Event continuing from past week (or past month)
                     if ((($eventEnd - strtotime($calDay)) / (60 * 60 * 24)) < 0.3) {
                         // Don't show event that end before 6:00, because it is probably the rest of a previous' day event
                         continue;
                     }
                     $span = floor(($eventEnd - strtotime($calDay)) / (60 * 60 * 24) + 1);
-                    var_dump($calDay, ($eventEnd - strtotime($calDay)) / (60 * 60 * 24));
+                    //var_dump($calDay, ($eventEnd - strtotime($calDay)) / (60 * 60 * 24));
                     if ($span > 7) {
                         $span = 7; // trim if event longer than week
                         array_push($eventClasses, 'event-week');
@@ -585,16 +600,19 @@ function mec_renderMonthCalendarFull($year, $month,  $eventsArray = [], $paging 
                         $excerpt = '<span>' . substr($excerpt, 0, strrpos($excerpt, ' ')) . '&hellip;</span>';
                     }
                     $rowNum = $eventsPerDay[$eventStartDate];
-                        $week .= '<div class="' . implode(' ', $eventClasses) . '" style="grid-column: day-' . $col . ' / day-' . ($col + $span) . '; grid-row: ' . ($rowNum + 1) . ' / ' . ($rowNum + 1) . ';">'
-                        . '<span class="event-date">' . date('d.m.Y', $eventStart) . ' - ' . date('d.m.Y', $eventEnd) . '<br /></span>'
-                        . '<span class="event-title">' . $eventTitleShort . '</span>'
+                    $week .= '<div itemtype="http://schema.org/Event" itemscope class="' . implode(' ', $eventClasses) . '" style="grid-column: day-' . $col . ' / day-' . ($col + $span) . '; grid-row: ' . ($rowNum + 1) . ' / ' . ($rowNum + 1) . ';">'
+                    . '<span class="mec-event-date">' . date('d.m.Y', $eventStart) . ' - ' . date('d.m.Y', $eventEnd) . '<br /></span>'
+                    . '<span itemprop="name" class="event-title">' . $eventTitleShort . '</span>'
+                    . '<meta itemprop="startDate" content="'. date_i18n('c', $eventStart) . '">'
+                    . '<meta itemprop="endDate" content="'. date_i18n('c', $eventEnd) . '">'
+                    . $locationMeta
                         . '<div role="tooltip" aria-hidden="true">'
-                            . '<p style="margin: 0;">' . $thumbnail . '</p>'
-                            . '<div class="event-title">' . $eventTitle . '</div>'
-                            . '<div class="event-date-time">' . $dateOut . ', ' . $timeOut . '</div>'
-                            . '<div class="event-description">' . $excerpt . ' <a href="' . $eventURL . '">' . __('Read more', 'my-event-calendar') . ' &raquo;</a></div>'
-                        . '</div>'
-                        . '</div>';
+                        . '<p style="margin: 0;">' . $thumbnail . '</p>'
+                        . '<div class="event-title">' . $eventTitle . '</div>'
+                        . '<div class="event-date-time">' . $dateOut . ', ' . $timeOut . '</div>'
+                        . '<div itemprop="description" class="event-description">' . $excerpt . ' <a href="' . $eventURL . '">' . __('Read more', 'my-event-calendar') . ' &raquo;</a></div>'
+                    . '</div>'
+                    . '</div>';
                 }
             }
         }
@@ -633,6 +651,7 @@ function mec_ajaxUpdateCalendar() {
     $period = explode('-', $periodRaw);
     $layout = sanitize_text_field($_POST['layout']);
     if (count($period) == 3) {
+        // day view
         $day = (int)$period[2];
         $month = (int)$period[1];
         $year = (int)$period[0];
@@ -649,6 +668,7 @@ function mec_ajaxUpdateCalendar() {
         }
         $startObj = date_create($date);
     } elseif (count($period) == 2) {
+        // month view
         $day = '';
         $month = (int)$period[1];
         $year = (int)$period[0];
@@ -674,6 +694,7 @@ function mec_ajaxUpdateCalendar() {
         $startObj = date_create('first day of ' . $monthName . ' ' . $year);
         //$endObj = date_create('last day of ' . $monthName . ' ' . $year);
     } else {
+        // year view
         $day = '';
         $month = '';
         $year = (int)$period[0];
@@ -684,7 +705,7 @@ function mec_ajaxUpdateCalendar() {
     //$endObj->add(new DateInterval('PT23H59M59S'));
     //$endTS = $endObj->getTimestamp();
     $startTS = $startObj->getTimestamp();
-    // Get bookings in calendar period
+    // Get events in calendar period
     $events = get_posts([
         'post_type' => 'event',
         'posts_per_page' => -1,
@@ -701,13 +722,16 @@ function mec_ajaxUpdateCalendar() {
             ],
         ],
     ]);
+    $eventsArray = [];
     $i = 0;
     foreach ($events as $event) {
         $eventItems = get_post_meta($event->ID, 'event-items', true);
         if (!empty($eventItems)) {
-            foreach ($eventItems as $start => $end) {
-                $eventsArray[$start][$i]['id'] = $event->ID;
-                $eventsArray[$start][$i]['end'] = $end;
+            //$eventsArray = array_merge($eventsArray, $eventItems);
+            foreach ($eventItems as $TSstart_ID => $TSend) {
+                $TSstart = explode('#', $TSstart_ID)[0];
+                $eventsArray[$TSstart][$i]['id'] = $event->ID;
+                $eventsArray[$TSstart][$i]['end'] = $TSend;
                 $i++;
             }
         }
