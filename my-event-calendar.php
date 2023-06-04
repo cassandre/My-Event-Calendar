@@ -1,8 +1,8 @@
 <?php
 /**
 * Plugin Name:     My Event Calendar
-* Plugin URI:
-* Description:
+* Plugin URI:      https://github.com/cassandre/My-Event-Calendar
+* Description:     Simple WordPress Calendar Plugin
 * Version:         1.0.0
 * Author:          Barbara Bothe
 * Author URI:      https://barbara-bothe.de
