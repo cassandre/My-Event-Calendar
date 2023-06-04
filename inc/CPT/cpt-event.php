@@ -396,7 +396,7 @@ function mec_saveEvent( $post_id ) {
         return $post_id;
     }
 
-    $eventList = mec_build_events_list([get_post($post_id)], true);
+    $eventList = mec_build_events_list([get_post($post_id)], false);
     //var_dump($eventList);
     update_post_meta($post_id, 'event-items', $eventList);
 
@@ -426,7 +426,7 @@ function mec_saveEvent( $post_id ) {
 add_action('updated_post_meta', 'mec_updatedMeta', 10, 4);
 function mec_updatedMeta($meta_id, $post_id, $meta_key='', $meta_value='') {
     //if ($meta_key =='_edit_lock') {
-        $eventList = mec_build_events_list([get_post($post_id)], true);
+        $eventList = mec_build_events_list([get_post($post_id)], false);
         update_post_meta($post_id, 'event-items', $eventList);
     //}
 }
@@ -628,7 +628,7 @@ function mec_contentEvent( $content ) {
     }
     $vc_url = mec_get_meta($meta, 'vc-url');
     if ($vc_url != '') {
-        $output .= '<p itemprop="location" itemscope itemtype="http://schema.org/VirtualLocation">><span class="label">' . __('Video Conference Link', 'my-event-calendar') . ':</span> <a itemprop="url" href="'. $vc_url . '">' . $vc_url . '</a>';
+        $output .= '<p itemprop="location" itemscope itemtype="http://schema.org/VirtualLocation"><span class="label">' . __('Video Conference Link', 'my-event-calendar') . ':</span> <a itemprop="url" href="'. $vc_url . '">' . $vc_url . '</a>';
     }
 
     // Prices + Tickets
